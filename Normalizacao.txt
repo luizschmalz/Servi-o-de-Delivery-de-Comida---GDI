@@ -1,0 +1,47 @@
+Telefone_rest(cnpj*, num_tel)
+cnpj refencia restaurante(CNPJ)
+
+Telefone(cpf*, num_tel)
+cpf referencia pessoa(cpf)
+
+endereço(CEP, Rua, Bairro, Cidade, País, Estado)
+
+Pessoa(CPF, Nome, Telefone*)
+telefone referencia telefone(num_tel)
+
+Cliente(CPF pessoa*, email, cep*, numero, complemento)
+cep referencia endereço(cep)
+CPF pessoa referencia Pessoa(CPF)
+
+Entregador(CPF pessoa*, Placa)
+CPF pessoa referencia Pessoa(CPF)
+
+Cozinheiro(CPF pessoa*, Salário, CPF cozinheiro chefe*)
+CPF pessoa referencia Pessoa(CPF)
+CPF cozinheiro chefe referencia cozinheiro(CPF pessoa)
+
+Restaurante(CNPJ, Nome, cep*, numero, complemento)
+cep referencia endereço(cep)
+
+Cupom(Código, Desconto, Validade)
+
+Pedido(ID, Status, Taxa de entrega, Forma de pagamento, Entregador*)
+Entregador referencia Entregador(CPF pessoa)
+
+pede_endidade_rel (cliente*, pedido*)
+cliente referencia cliente(CPF pessoa)
+Pedido referencia pedido(ID)
+
+info_pedido (pedido*, cupom*, data do pedido, hora do pedido, data da prev
+isão de entrega, hora da previsão de entrega)
+Pedido referencia pedido(ID)
+Cupom referencia cupom(código)
+
+Itens(Código do Item, Nome, Quantidade, Preço, Pedido*)
+Pedido referencia pedido(ID)
+
+Prepara(ID, Cozinheiro*, Itens*, Restaurante*)
+Cozinheiro referencia cozinheiro(CPF pessoa)
+Itens referencia itens(código do item)
+restaurante referencia restaurante(CNPJ)
+##considerando que um cozinheiro pode trabalhar em mais de um restaurante##
