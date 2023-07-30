@@ -1,47 +1,61 @@
 Telefone_rest(cnpj*, num_tel)
 cnpj refencia restaurante(CNPJ)
+PRIMARY KEY = CPNJ, NUM_TEL
 
 Telefone(cpf*, num_tel)
 cpf referencia pessoa(cpf)
+PRIMARY KEY =NUM_TEL, CPF
 
 endereço(CEP, Rua, Bairro, Cidade, País, Estado)
+PRIMARY KEY = CEP
 
-Pessoa(CPF, Nome, Telefone*)
-telefone referencia telefone(num_tel)
+Pessoa(CPF, Nome)
+PRIMARY KEY = CPF
 
 Cliente(CPF pessoa*, email, cep*, numero, complemento)
 cep referencia endereço(cep)
 CPF pessoa referencia Pessoa(CPF)
+PRIMARY KEY = CPF_PESSOA
 
 Entregador(CPF pessoa*, Placa)
 CPF pessoa referencia Pessoa(CPF)
+PRIMARY KEY = CPF_PESSOA
 
 Cozinheiro(CPF pessoa*, Salário, CPF cozinheiro chefe*)
 CPF pessoa referencia Pessoa(CPF)
 CPF cozinheiro chefe referencia cozinheiro(CPF pessoa)
+PRIMARY KEY = CPF_PESSOA
 
 Restaurante(CNPJ, Nome, cep*, numero, complemento)
 cep referencia endereço(cep)
+PRIMARY KEY = CNPJ
 
 Cupom(Código, Desconto, Validade)
+PRIMARY KEY = CODIGO
 
 Pedido(ID, Status, Taxa de entrega, Forma de pagamento, Entregador*)
 Entregador referencia Entregador(CPF pessoa)
+PRIMARY KEY = ID
 
 pede_endidade_rel (cliente*, pedido*)
 cliente referencia cliente(CPF pessoa)
 Pedido referencia pedido(ID)
+PRIMARY KEY = CLIENTE, PEDIDO
 
 info_pedido (pedido*, cupom*, data do pedido, hora do pedido, data da prev
 isão de entrega, hora da previsão de entrega)
 Pedido referencia pedido(ID)
 Cupom referencia cupom(código)
+PRIMARY KEY = PEDIDO
 
 Itens(Código do Item, Nome, Quantidade, Preço, Pedido*)
 Pedido referencia pedido(ID)
+PRIMARY KEY = PEDIDO, CODIGO ITEM
 
-Prepara(ID, Cozinheiro*, Itens*, Restaurante*)
+Prepara(ID, Cozinheiro*, Itens*, Restaurante*, Pedido_FK*)
 Cozinheiro referencia cozinheiro(CPF pessoa)
 Itens referencia itens(código do item)
+Pedido_fk refenceia itens(pedido)
 restaurante referencia restaurante(CNPJ)
+PRIMARY KEY = ID, COZINHEIRO, ITENS, PEDIDO_FK
 ##considerando que um cozinheiro pode trabalhar em mais de um restaurante##
