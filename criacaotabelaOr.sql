@@ -9,14 +9,13 @@ CREATE OR REPLACE TYPE tp_endereco AS OBJECT(
 /
 
 CREATE OR REPLACE TYPE tp_telefone AS OBJECT (
-    cod_area VARCHAR2(2),
-    numero VARCHAR2(8)
+    numero VARCHAR2(20)
 );
 /
 
 CREATE OR REPLACE TYPE tp_restaurante AS OBJECT(
     nome VARCHAR2(50),
-    CNPJ VARCHAR2(14),
+    CNPJ VARCHAR2(20),
     num_tel tp_telefone,
     endereco tp_endereco
 );
@@ -24,7 +23,7 @@ CREATE OR REPLACE TYPE tp_restaurante AS OBJECT(
 
 CREATE OR REPLACE TYPE tp_pessoa AS OBJECT(
     nome VARCHAR2(50),
-    CPF VARCHAR2(11),
+    CPF VARCHAR2(20),
     telefone tp_telefone
 ) NOT FINAL NOT INSTANTIABLE;
 /
@@ -40,7 +39,7 @@ CREATE OR REPLACE TYPE tp_cliente UNDER tp_pessoa(
 
 
 CREATE OR REPLACE TYPE tp_entregador UNDER tp_pessoa(
-    placa VARCHAR2(7)
+    placa VARCHAR2(20)
 );
 /
 
