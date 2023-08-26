@@ -39,17 +39,14 @@ CREATE OR REPLACE TYPE tp_cliente UNDER tp_pessoa(
 /
 
 
-CREATE OR REPLACE TYPE tp_entregador AS OBJECT(
-    pessoa tp_pessoa,
+CREATE OR REPLACE TYPE tp_entregador UNDER tp_pessoa(
     placa VARCHAR2(7)
 );
 /
 
-CREATE OR REPLACE TYPE tp_cozinheiro AS OBJECT(
-    pessoa tp_pessoa,
+CREATE OR REPLACE TYPE tp_cozinheiro UNDER tp_pessoa(
     salario NUMBER,
-    chefe REF tp_cozinheiro,
-    ORDER MEMBER FUNCTION compara_salario(X tp_cozinheiro) RETURN NUMBER
+    chefe REF tp_cozinheiro
 ) NOT FINAL;
 /
 
@@ -160,12 +157,12 @@ CREATE TABLE tb_cliente of tp_cliente(
 /
 
 CREATE TABLE tb_entregador of tp_entregador(
-    pessoa PRIMARY KEY
+    CPF PRIMARY KEY
 );
 /
 
 CREATE TABLE tb_cozinheiro of tp_cozinheiro(
-    pessoa PRIMARY KEY
+    CPF PRIMARY KEY
 );
 /
 
@@ -175,8 +172,7 @@ CREATE TABLE tb_cupom of tp_cupom(
 /
 
 CREATE TABLE tb_pedido of tp_pedido(
-    ID PRIMARY KEY,
-    entregador WITH ROWID REFERENCES tb_entregador
+    ID PRIMARY KEY
 );
 /
 
@@ -187,8 +183,7 @@ CREATE TABLE tb_info_pedido of tp_info_pedido(
 /
 
 CREATE TABLE tb_itens of tp_itens(
-    codigo_item PRIMARY KEY,
-    ID WITH ROWID REFERENCES tb_pedido
+    codigo_item PRIMARY KEY
 );
 /
 
